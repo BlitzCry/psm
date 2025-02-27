@@ -1,9 +1,12 @@
 <script lang="ts">
 import Question from "../components/Question.vue";
 import Result from "../components/Result.vue";
+import questions from "../stores/questions.js";
 
 import { mapStores } from 'pinia'
 import { useCounterStore } from "../stores/counter";
+import QuestionEntity from "../entities/QuestionEntity";
+import type QuestionType from "../types/Question.js";
 
 export default {
   components: {
@@ -13,13 +16,20 @@ export default {
 
   data() {
     return {
-      question: undefined
+      question: undefined,
+      questions: [] as QuestionType[]
     }
   },
 
   computed: {
     ...mapStores(useCounterStore)
   },
+
+  mounted() {
+    questions.forEach((question: QuestionType) => {
+      this.questions.push(QuestionEntity.fromObject(question))
+    })
+  }
 };
 
 </script>

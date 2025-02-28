@@ -748,7 +748,7 @@ export default [
   },
   {
     "question": "True or False: When multiple teams work together on the same product, each team should maintain a separate Product Backlog.",
-    "type": "multiple_choice",
+    "type": "single_choice",
     "options": [
       {
         "text": "True.",
@@ -899,7 +899,7 @@ export default [
   },
   {
     "question": "True or False: When multiple teams work together on the same product, each team should maintain a separate Product Backlog.",
-    "type": "multiple_choice",
+    "type": "single_choice",
     "options": [
       {
         "text": "True.",
@@ -1211,7 +1211,7 @@ export default [
   },
   {
     "question": "True or False: The Product Owner makes sure the team selects enough from the Product Backlog for a Sprint to satisfy the stakeholders.",
-    "type": "multiple_choice",
+    "type": "single_choice",
     "options": [
       {
         "text": "True.",
@@ -1445,7 +1445,7 @@ export default [
   },
   {
     "question": "True or False: Every Scrum team must have a Product Owner and Scrum Master.",
-    "type": "multiple_choice",
+    "type": "single_choice",
     "options": [
       {
         "text": "True. Outcomes affected by their participation and availability.",
@@ -1497,7 +1497,7 @@ export default [
   },
   {
     "question": "True or False: The Sprint Goal is a result of Sprint Planning, as is the Sprint Backlog.",
-    "type": "multiple_choice",
+    "type": "single_choice",
     "options": [
       {
         "text": "True.",
@@ -1565,7 +1565,7 @@ export default [
   },
   {
     "question": "True or False: Cross-functional teams are optimized to work on one technical layer of a system only (e.g. GUI, database, middle tier, interfaces).",
-    "type": "multiple_choice",
+    "type": "single_choice",
     "options": [
       {
         "text": "True.",
@@ -1866,7 +1866,7 @@ export default [
   },
   {
     "question": "True or False: The Product Owner determines how many Product Backlog items the Developers selects for a Sprint. (choose the best answer)",
-    "type": "multiple_choice",
+    "type": "single_choice",
     "options": [
       {
         "text": "False.",
@@ -1964,7 +1964,7 @@ export default [
   },
   {
     "question": "True or False: To get started in terms of what to build, Scrum requires no more than a Product Owner with enough ideas for a first Sprint, Developers to implement those ideas and a Scrum Master to help guide the process.",
-    "type": "multiple_choice",
+    "type": "single_choice",
     "options": [
       {
         "text": "True.",
@@ -2063,7 +2063,7 @@ export default [
   },
   {
     "question": "True or False: A product Increment must be released to production at the end of each Sprint.",
-    "type": "multiple_choice",
+    "type": "single_choice",
     "options": [
       {
         "text": "True.",
@@ -2307,7 +2307,7 @@ export default [
   },
   {
     "question": "True or False: A Scrum Master is essentially the same thing as a traditional PM (Project Manager).",
-    "type": "multiple_choice",
+    "type": "single_choice",
     "options": [
       {
         "text": "True.",
@@ -2354,7 +2354,7 @@ export default [
   },
   {
     "question": "True or False: Multiple Scrum Teams working on the same product or system all select work from the same Product Backlog.",
-    "type": "multiple_choice",
+    "type": "single_choice",
     "options": [
       {
         "text": "True.",
@@ -2401,7 +2401,7 @@ export default [
   },
   {
     "question": "True or False: Multiple Scrum Teams working on the same project must have the same Sprint start date.",
-    "type": "multiple_choice",
+    "type": "single_choice",
     "options": [
       {
         "text": "True.",

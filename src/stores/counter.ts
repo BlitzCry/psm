@@ -16,15 +16,21 @@ type QuestionsData = {
 }
 
 //@ts-expect-error Meh
-import questions from '../questions/questions.js'
-
-const typedQuestions = questions as QuestionsData
+import questions from './questions.js'
+import type QuestionType from '../enum/QuestionTypes.js'
+import QuestionEntity from '../entities/QuestionEntity.js'
 
 export const useCounterStore = defineStore('counter', {
   state: () => ({
-    questions: typedQuestions.scrum_quiz,
+    questions: questions
+      .sort(() => Math.random() - 0.5) // Shuffle the array
+      .slice(0, 80) // Pick the first 80 questions
+      .map((question: QuestionType) => {
+        return QuestionEntity.fromObject(question)
+      }),
     currentQuestion: 0,
     answerStatuses: {},
+    isQuizFinished: false,
   }),
 
   getters: {
@@ -73,6 +79,10 @@ export const useCounterStore = defineStore('counter', {
       this.validateAnswer(answer, this.currentQuestion)
 
       this.currentQuestion++
+
+      if (this.currentQuestion >= this.questions.length) {
+        this.isQuizFinished = true
+      }
     },
 
     previousQuestion() {
@@ -84,16 +94,22 @@ export const useCounterStore = defineStore('counter', {
     },
 
     validateAnswer(answer: string[], questionNb: number) {
-      this.questions[questionNb].choices = this.questions[questionNb].choices.map((choice) => ({
+      this.questions[questionNb].choices = this.questions[questionNb].options.map((choice) => ({
         ...choice,
         chosen: answer.includes(choice.text),
       }))
 
-      const correctChoices = this.questions[questionNb].choices
-        .filter((choice) => choice.correct)
-        .map((choice) => choice.text)
+      const correctChoices = this.questions[questionNb].options
+        .filter((choice: Choice) => choice.correct)
+        .map((choice: Choice) => choice.text)
 
-      this.questions[questionNb].isCorrect = this.areArraysEqual(correctChoices, answer)
+      if (!answer.length) {
+        this.questions[questionNb].empty_response = true
+      } else {
+        this.questions[questionNb].empty_response = false
+      }
+
+      this.questions[questionNb].is_correct = this.areArraysEqual(correctChoices, answer)
     },
 
     areArraysEqual(arr1: unknown[], arr2: unknown[]) {

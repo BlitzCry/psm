@@ -1,17 +1,18 @@
 <script lang="ts">
 import Question from "../components/Question.vue";
-import Result from "../components/Result.vue";
-import questions from "../stores/questions.js";
 
 import { mapStores } from 'pinia'
 import { useCounterStore } from "../stores/counter";
-import QuestionEntity from "../entities/QuestionEntity";
+import { useQuestionStore } from "../stores/question";
+
 import type QuestionType from "../types/Question.js";
+
+import QuizReview from "../components/QuizReview.vue";
 
 export default {
   components: {
     Question,
-    Result
+    QuizReview
   },
 
   data() {
@@ -22,23 +23,42 @@ export default {
   },
 
   computed: {
-    ...mapStores(useCounterStore)
+    ...mapStores(useCounterStore, useQuestionStore)
   },
-
-  mounted() {
-    questions.forEach((question: QuestionType) => {
-      this.questions.push(QuestionEntity.fromObject(question))
-    })
-  }
 };
 
 </script>
 
 <template>
-  <div>
-    <Question v-if="counterStore.getCurrentQuestion" :title="counterStore.getCurrentQuestion.question"
-      subtitle="Choose all that apply" :choices="counterStore.getCurrentQuestion.choices" />
-    <Result v-else />
-  </div>
+  <div class="question-container">
+    <!-- <QuizReview></QuizReview> -->
 
+    <div class="fixed-card">
+      <Question v-if="!questionStore.isFinished" :question="questionStore.question()" />
+      <QuizReview v-else />
+    </div>
+  </div>
 </template>
+
+<style scoped>
+.question-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* Full viewport height */
+  grid-column: 1 / -1;
+}
+
+.fixed-card {
+  width: 700px;
+  min-width: 500px;
+  /* Fixed width */
+  height: 500px;
+  /* Fixed height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+</style>

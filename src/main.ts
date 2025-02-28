@@ -1,6 +1,7 @@
+import PrimeVue from 'primevue/config'
+import Lara from '@primeuix/themes/lara'
+
 import './assets/main.css'
-import PrimeVue from 'primevue/config';
-import Lara from '@primeuix/themes/lara';
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -18,8 +19,7 @@ app.use(PrimeVue, {
   theme: {
     preset: Lara,
     ripple: true,
-  }
+  },
 })
-
 
 app.mount('#app')

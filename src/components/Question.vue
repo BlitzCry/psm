@@ -7,13 +7,13 @@
         <div class="checkbox-group" v-if="question.type === 'multiple_choice'">
           <Checkbox :inputId="`${index}`" :name="`choice-${index}`" :value="option.text" v-model="selectedOptions"
             @change="updateSelections" />
-          <label :for="index">{{ option.text }}</label>
+          <label :for="`${index}`">{{ option.text }}</label>
         </div>
 
         <div class="checkbox-group" v-else>
           <RadioButton :inputId="`${index}`" :name="`choice-${index}`" :value="option.text" v-model="selectedOption"
             @change="updateSelections" />
-          <label :for="index">{{ option.text }}</label>
+          <label :for="`${index}`">{{ option.text }}</label>
         </div>
       </div>
     </template>
@@ -118,6 +118,7 @@ export default defineComponent({
     },
 
     submit() {
+      this.next();
       this.questionStore.submit();
     }
   }

@@ -5,18 +5,19 @@
     <template #content>
       <div v-for="(option, index) in question.options" :key="index">
         <div class="checkbox-group" v-if="question.type === 'multiple_choice'">
-          <Button style="height: 34px; width: 34px" disabled variant="outlined" :severity="severity(option)"
-            :icon="icon(option)">
+          <Button style="height: 34px; width: 34px" disabled variant="outlined" :severity="severity(option)">
+            <i :class="icon(option)" :style="{ visibility: icon(option) ? 'visible' : 'hidden' }"></i>
           </Button>
 
-          <label :for="index">{{ option.text }}</label>
+          <label :for="`${index}`">{{ option.text }}</label>
         </div>
 
         <div class="checkbox-group" v-else>
           <Button style="height: 34px; width: 34px; border-radius: 100%" disabled variant="outlined"
-            :severity="severity(option)" :icon="icon(option)">
+            :severity="severity(option)">
+            <i :class="icon(option)" :style="{ visibility: icon(option) ? 'visible' : 'hidden' }"></i>
           </Button>
-          <label :for="index">{{ option.text }}</label>
+          <label :for="`${index}`">{{ option.text }}</label>
         </div>
       </div>
     </template>
@@ -31,6 +32,7 @@ import RadioButton from 'primevue/radiobutton';
 
 import { mapStores } from 'pinia';
 import { useQuestionStore } from "../stores/question";
+import type Option from '../types/Option';
 
 // import type Question from "../types/Question.ts";
 
@@ -58,14 +60,14 @@ export default {
   },
 
   methods: {
-    severity(option) {
+    severity(option: Option) {
       return option.is_correct == true ? "success" : "danger";
     },
 
-    icon(option) {
-      console.log({ option });
-      return option.is_selected == true ? "pi pi-check" : "";
+    icon(option: Option) {
+      return option.is_selected ? 'pi pi-check' : '';
     }
+
   }
 }
 </script>
@@ -87,5 +89,9 @@ export default {
   display: flex;
   gap: 1rem;
   margin-top: 0.25rem;
+}
+
+.hidden-icon::before {
+  visibility: hidden;
 }
 </style>

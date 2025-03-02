@@ -7,19 +7,22 @@
         </Tab>
       </TabList>
       <TabPanels class="tab-panels">
+        <!-- All questions tab -->
         <TabPanel :key="'all_questions'" :value="0">
-          <QuizReviewQuestion v-for="(question, index) of questionStore.questions" :question="question"
-            :index="index + 1" :key="index" />
+          <QuizReviewQuestion v-for="question in questionStore.questions" :question="question"
+            :index="questionStore.questions.indexOf(question) + 1" :key="questionStore.questions.indexOf(question)" />
         </TabPanel>
 
+        <!-- Correct questions tab -->
         <TabPanel :key="'correct'" :value="1">
-          <QuizReviewQuestion v-for="(question, index) of questionStore.questions.filter(q => q.is_correct)"
-            :question="question" :index="index + 1" :key="index" />
+          <QuizReviewQuestion v-for="question in correctQuestions" :question="question"
+            :index="questionStore.questions.indexOf(question) + 1" :key="questionStore.questions.indexOf(question)" />
         </TabPanel>
 
+        <!-- Incorrect questions tab -->
         <TabPanel :key="'incorrect'" :value="2">
-          <QuizReviewQuestion v-for="(question, index) of questionStore.questions.filter(q => !q.is_correct)"
-            :question="question" :index="index + 1" :key="index" />
+          <QuizReviewQuestion v-for="question in wrongQuestions" :question="question"
+            :index="questionStore.questions.indexOf(question) + 1" :key="questionStore.questions.indexOf(question)" />
         </TabPanel>
       </TabPanels>
     </Tabs>
@@ -36,6 +39,7 @@ import TabPanel from 'primevue/tabpanel';
 import QuizReviewQuestion from "./QuizReviewQuestion.vue";
 import { mapStores } from 'pinia';
 import { useQuestionStore } from "../stores/question";
+import type Question from '../types/Question';
 
 export default defineComponent({
   name: "QuizReview",
@@ -51,12 +55,27 @@ export default defineComponent({
   data() {
     return {
       selectedTab: 0, // Keep track of the selected tab
-      tabs: [] // Tabs data will be populated in mounted()
+      tabs: [] as [{ title: string, value: number, disabled: boolean }] // Tabs data will be populated in mounted()
     };
   },
 
   computed: {
     ...mapStores(useQuestionStore),
+
+    correctQuestions() {
+      return this.questionStore.questions.filter((question: Question) => {
+
+        return question.is_correct;
+      })
+    },
+
+    wrongQuestions() {
+      return this.questionStore.questions.filter((question: Question) => {
+        console.log({ question });
+
+        return !question.is_correct;
+      })
+    }
   },
 
   mounted() {

@@ -13,7 +13,7 @@ export const useQuestionStore = defineStore('question', {
   state: () => ({
     questions: questions
       .sort(() => Math.random() - 0.5) // Shuffle the array
-      .slice(0, 10) // Pick the first 80 questions
+      .slice(0, 80) // Pick the first 80 questions
       .map((question: QuestionType) => {
         //@ts-expect-error hehehe
         return QuestionEntity.fromObject(question)
@@ -37,28 +37,20 @@ export const useQuestionStore = defineStore('question', {
       let isCorrect = true
 
       currentQuestion.options.forEach((option: Option) => {
-        if (Array.isArray(answer)) {
-          if (answer.includes(option.text) && option.is_correct) {
-            option.is_selected = true
-          } else if (!answer.includes(option.text) && option.is_correct) {
-            isCorrect = false
-          } else {
-            option.is_selected = false
-          }
-        } else {
-          if (option.text === answer && option.is_correct) {
-            option.is_selected = true
-          } else if (option.text === answer && !option.is_correct) {
-            isCorrect = false
-            option.is_selected = false
-          } else if (option.text !== answer && option.is_correct) {
-            isCorrect = false
-          }
+        const isSelected = Array.isArray(answer)
+          ? answer.includes(option.text)
+          : option.text === answer
+
+        option.is_selected = isSelected
+
+        if ((isSelected && !option.is_correct) || (!isSelected && option.is_correct)) {
+          isCorrect = false
         }
       })
 
       if (isCorrect) {
         this.correct++
+        this.question().is_correct = isCorrect
       }
 
       this.pointer++

@@ -5296,7 +5296,7 @@ export default [
   },
   {
     "question": "The Scrum Master is responsible for?",
-    "type": "multiple_choice",
+    "type": "single_choice",
     "options": [
       {
         "text": "Delivering the Product on budget and to the agreed schedule.",

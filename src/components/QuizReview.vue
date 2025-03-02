@@ -1,5 +1,6 @@
 <template>
   <div class="card">
+    <QuizResults />
     <Tabs :value="selectedTab" class="tabs-container" @update:value="onTabChange">
       <TabList class="tab-list">
         <Tab style="width: 33%" v-for="tab in tabs" :key="tab.title" :value="tab.value" :disabled="tab.disabled">
@@ -40,6 +41,7 @@ import QuizReviewQuestion from "./QuizReviewQuestion.vue";
 import { mapStores } from 'pinia';
 import { useQuestionStore } from "../stores/question";
 import type Question from '../types/Question';
+import QuizResults from './QuizResults.vue';
 
 export default defineComponent({
   name: "QuizReview",
@@ -49,13 +51,14 @@ export default defineComponent({
     Tab,
     TabPanels,
     TabPanel,
-    QuizReviewQuestion
+    QuizReviewQuestion,
+    QuizResults
   },
 
   data() {
     return {
       selectedTab: 0, // Keep track of the selected tab
-      tabs: [] as [{ title: string, value: number, disabled: boolean }] // Tabs data will be populated in mounted()
+      tabs: [] as unknown as [{ title: string, value: number, disabled: boolean }] // Tabs data will be populated in mounted()
     };
   },
 
@@ -64,15 +67,12 @@ export default defineComponent({
 
     correctQuestions() {
       return this.questionStore.questions.filter((question: Question) => {
-
         return question.is_correct;
       })
     },
 
     wrongQuestions() {
       return this.questionStore.questions.filter((question: Question) => {
-        console.log({ question });
-
         return !question.is_correct;
       })
     }
@@ -86,13 +86,13 @@ export default defineComponent({
     });
 
     this.tabs.push({
-      title: this.questionStore.correct + " Correct",
+      title: this.questionStore.countCorrectAnswers + " Correct",
       value: 1,
       disabled: this.questionStore.correct === 0
     });
 
     this.tabs.push({
-      title: this.questionStore.questions.length - this.questionStore.correct + " Incorrect",
+      title: this.questionStore.countIncorrectAnswers + " Incorrect",
       value: 2,
       disabled: (this.questionStore.questions.length - this.questionStore.correct) === 0
     });
@@ -134,5 +134,9 @@ export default defineComponent({
   height: 100vh;
   padding: 10px;
   overflow: hidden;
+}
+
+.full-width {
+  width: 100%;
 }
 </style>

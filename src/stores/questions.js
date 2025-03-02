@@ -633,8 +633,8 @@ export default [
     ]
   },
   {
-    "question": "Who determines how work is performed during the Sprint? (choose the best answer)",
-    "type": "multiple_choice",
+    "question": "Who determines how work is performed during the Sprint?",
+    "type": "single_choice",
     "options": [
       {
         "text": "Architects.",
@@ -1747,7 +1747,7 @@ export default [
   },
   {
     "question": "When is the Sprint Backlog created? (choose the best answer)",
-    "type": "multiple_choice",
+    "type": "single_choice",
     "options": [
       {
         "text": "At the beginning of the project.",

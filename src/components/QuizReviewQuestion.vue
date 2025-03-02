@@ -66,8 +66,7 @@ export default {
 
     icon(option: Option) {
       return option.is_selected ? 'pi pi-check' : '';
-    }
-
+    },
   }
 }
 </script>

@@ -6,6 +6,7 @@ import type QuestionType from '../enum/QuestionTypes'
 
 //@ts-expect-error hehehe
 import questions from './questions.js'
+import type Question from '../types/Question.js'
 
 type Answer = string | string[]
 
@@ -25,9 +26,27 @@ export const useQuestionStore = defineStore('question', {
     correct: 0,
   }),
 
-  getters: {},
+  getters: {
+    countCorrectAnswers(state) {
+      return state.questions.filter((question: Question) => question.is_correct).length
+    },
+
+    countIncorrectAnswers(state) {
+      return state.questions.filter((question: Question) => !question.is_correct).length
+    },
+  },
 
   actions: {
+    pickQuestions(amount: number) {
+      return questions
+        .sort(() => Math.random() - 0.5) // Shuffle the array
+        .slice(0, amount) // Pick the first N questions
+        .map((question: QuestionType) => {
+          //@ts-expect-error hehehe
+          return QuestionEntity.fromObject(question)
+        })
+    },
+
     question(index?: number) {
       return this.questions[index ?? this.pointer]
     },
@@ -50,7 +69,9 @@ export const useQuestionStore = defineStore('question', {
 
       if (isCorrect) {
         this.correct++
-        this.question().is_correct = isCorrect
+        this.question().is_correct = true
+      } else {
+        this.question().is_correct = false
       }
 
       this.pointer++

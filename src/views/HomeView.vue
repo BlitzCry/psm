@@ -31,8 +31,6 @@ export default {
 
 <template>
   <div class="question-container">
-    <!-- <QuizReview></QuizReview> -->
-
     <div class="fixed-card">
       <Question v-if="!questionStore.isFinished" :question="questionStore.question()" />
       <QuizReview v-else />

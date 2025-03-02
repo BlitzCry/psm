@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <QuizResults />
-    <Tabs :value="selectedTab" class="tabs-container" @update:value="onTabChange">
+    <Tabs :value="selectedTab" class="tabs-container" @update="onTabChange">
       <TabList class="tab-list">
         <Tab style="width: 33%" v-for="tab in tabs" :key="tab.title" :value="tab.value" :disabled="tab.disabled">
           {{ tab.title }}

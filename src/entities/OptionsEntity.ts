@@ -10,12 +10,7 @@ export default class OptionsEntity implements Options {
   }
 
   static fromObject(options: Options) {
-    const entityOptions = []
-
-    for (const option of options) {
-      entityOptions.push(new OptionEntity(option))
-    }
-
+    const entityOptions = options.options.map((option) => new OptionEntity(option))
     return new OptionsEntity(entityOptions)
   }
 }

@@ -2,7 +2,6 @@
 import Question from "../components/Question.vue";
 
 import { mapStores } from 'pinia'
-import { useCounterStore } from "../stores/counter";
 import { useQuestionStore } from "../stores/question";
 
 import type QuestionType from "../types/Question.js";
@@ -23,7 +22,7 @@ export default {
   },
 
   computed: {
-    ...mapStores(useCounterStore, useQuestionStore)
+    ...mapStores(useQuestionStore)
   },
 };
 

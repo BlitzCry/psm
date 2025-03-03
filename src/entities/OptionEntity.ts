@@ -2,28 +2,28 @@ import type Option from '../types/Option'
 
 export default class OptionEntity implements Option {
   text: string
-  is_correct: boolean
-  is_selected: boolean
+  isCorrect: boolean
+  isSelected: boolean
 
   constructor({
     text,
-    is_correct,
-    is_selected,
+    isCorrect,
+    isSelected,
   }: {
     text: string
-    is_correct: boolean
-    is_selected: boolean
+    isCorrect: boolean
+    isSelected: boolean
   }) {
     this.text = text
-    this.is_correct = is_correct
-    this.is_selected = is_selected
+    this.isCorrect = isCorrect
+    this.isSelected = isSelected
   }
 
   static fromObject(option: Option) {
     return new OptionEntity({
       text: option.text,
-      is_correct: option.is_correct,
-      is_selected: option.is_selected,
+      isCorrect: option.isCorrect,
+      isSelected: option.isSelected,
     })
   }
 
@@ -32,14 +32,14 @@ export default class OptionEntity implements Option {
   }
 
   getIsCorrect() {
-    return this.is_correct
+    return this.isCorrect
   }
 
   select() {
-    this.is_selected = true
+    this.isSelected = true
   }
 
   unselect() {
-    this.is_selected = false
+    this.isSelected = false
   }
 }

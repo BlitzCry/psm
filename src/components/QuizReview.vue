@@ -43,6 +43,12 @@ import { useQuestionStore } from "../stores/question";
 import type Question from '../types/Question';
 import QuizResults from './QuizResults.vue';
 
+interface SingleTab {
+  title: string,
+  value: number,
+  disabled: boolean,
+};
+
 export default defineComponent({
   name: "QuizReview",
   components: {
@@ -58,7 +64,7 @@ export default defineComponent({
   data() {
     return {
       selectedTab: 0, // Keep track of the selected tab
-      tabs: [] as unknown as [{ title: string, value: number, disabled: boolean }] // Tabs data will be populated in mounted()
+      tabs: [] as SingleTab[]  // Tabs data will be populated in mounted()
     };
   },
 
@@ -67,13 +73,13 @@ export default defineComponent({
 
     correctQuestions() {
       return this.questionStore.questions.filter((question: Question) => {
-        return question.is_correct;
+        return question.isCorrect;
       })
     },
 
     wrongQuestions() {
       return this.questionStore.questions.filter((question: Question) => {
-        return !question.is_correct;
+        return !question.isCorrect;
       })
     }
   },

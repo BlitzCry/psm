@@ -61,11 +61,11 @@ export default {
 
   methods: {
     severity(option: Option) {
-      return option.is_correct == true ? "success" : "danger";
+      return option.isCorrect ? "success" : "danger";
     },
 
     icon(option: Option) {
-      return option.is_selected ? 'pi pi-check' : '';
+      return option.isSelected ? 'pi pi-check' : '';
     },
   }
 }

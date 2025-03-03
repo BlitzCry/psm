@@ -109,7 +109,7 @@ export const useCounterStore = defineStore('counter', {
         this.questions[questionNb].empty_response = false
       }
 
-      this.questions[questionNb].is_correct = this.areArraysEqual(correctChoices, answer)
+      this.questions[questionNb].isCorrect = this.areArraysEqual(correctChoices, answer)
     },
 
     areArraysEqual(arr1: unknown[], arr2: unknown[]) {

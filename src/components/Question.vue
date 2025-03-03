@@ -22,7 +22,7 @@
     </template>
 
     <template #footer>
-      <div class="button-group">
+      <div class="button-group fixed-footer">
         <Button v-if="isBackButtonActive" class="full-width" label="Back" severity="secondary" @click="previous()" />
         <Button v-if="isNextButtonActive" class="full-width" label="Next" @click="next()" />
         <Button v-else class="full-width" label="Submit" @click="submit()" />
@@ -43,12 +43,15 @@ import { mapStores } from 'pinia';
 import { useQuestionStore } from "../stores/question";
 
 import type Option from '../types/Option.js'
+import type Question from "@/types/Question.ts";
 
 export default defineComponent({
+  // eslint-disable-next-line vue/multi-word-component-names
   name: 'Question',
+  // eslint-disable-next-line vue/no-reserved-component-names
   components: { Checkbox, Button, Card, RadioButton },
 
-  props: { question: { type: Object, required: true } },
+  props: { question: { type: Object as PropType<Question>, required: true } },
 
   data() {
     return { selectedOptions: [] as string[], selectedOption: '' as string };
@@ -68,16 +71,16 @@ export default defineComponent({
   methods: {
     initializeSelections() {
       if (this.question.type === 'multiple_choice') {
-        this.selectedOptions = this.question.options.filter((option: Option) => option.is_selected).map((option: Option) => option.text);
+        this.selectedOptions = this.question.options.filter((option: Option) => option.isSelected).map((option: Option) => option.text);
       } else {
-        const selected = this.question.options.find((option: Option) => option.is_selected);
+        const selected = this.question.options.find((option: Option) => option.isSelected);
         this.selectedOption = selected ? selected.text : '';
       }
     },
 
     updateSelections() {
       this.question.options.forEach((option: Option) => {
-        option.is_selected = this.question.type === 'multiple_choice' ? this.selectedOptions.includes(option.text) : option.text === this.selectedOption;
+        option.isSelected = this.question.type === 'multiple_choice' ? this.selectedOptions.includes(option.text) : option.text === this.selectedOption;
       });
     },
 
@@ -121,6 +124,17 @@ export default defineComponent({
 
 .full-width {
   width: 100%;
+}
+
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  left: 25%;
+  width: 50%;
+  padding: 16px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
 }
 
 @media (max-width: 768px) {

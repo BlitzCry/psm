@@ -5,5 +5,5 @@ export default interface Question {
   question: string
   type: QuestionType
   options: Option[]
-  is_correct?: boolean
+  isCorrect?: boolean
 }

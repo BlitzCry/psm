@@ -22,6 +22,7 @@ import Button from 'primevue/button';
 
 export default {
   name: "QuizResults",
+  // eslint-disable-next-line vue/no-reserved-component-names
   components: { Card, Button },
 
   computed: {

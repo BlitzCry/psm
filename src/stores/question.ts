@@ -28,11 +28,11 @@ export const useQuestionStore = defineStore('question', {
 
   getters: {
     countCorrectAnswers(state) {
-      return state.questions.filter((question: Question) => question.is_correct).length
+      return state.questions.filter((question: Question) => question.isCorrect).length
     },
 
     countIncorrectAnswers(state) {
-      return state.questions.filter((question: Question) => !question.is_correct).length
+      return state.questions.filter((question: Question) => !question.isCorrect).length
     },
   },
 
@@ -60,18 +60,18 @@ export const useQuestionStore = defineStore('question', {
           ? answer.includes(option.text)
           : option.text === answer
 
-        option.is_selected = isSelected
+        option.isSelected = isSelected
 
-        if ((isSelected && !option.is_correct) || (!isSelected && option.is_correct)) {
+        if ((isSelected && !option.isCorrect) || (!isSelected && option.isCorrect)) {
           isCorrect = false
         }
       })
 
       if (isCorrect) {
         this.correct++
-        this.question().is_correct = true
+        this.question().isCorrect = true
       } else {
-        this.question().is_correct = false
+        this.question().isCorrect = false
       }
 
       this.pointer++
